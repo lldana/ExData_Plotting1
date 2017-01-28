@@ -18,11 +18,6 @@ df$Global_reactive_power <- as.double(as.character(df$Global_reactive_power))
 df$DT <- paste(df$Date, df$Time, sep = " ")
 df$DT <- as.POSIXct(df$DT)
 
-plot(df$DT, df$Global_active_power, type = "l", ylab = "Global Active Power (kilowatts)", xlab ="")
-dev.copy(png, file = "plot2.png")
-dev.off()
-
-
 par(mfrow = c(2,2))
 plot(df$DT, df$Global_active_power, type = "l", ylab = "Global Active Power (kilowatts)",xlab ="")
 plot(df$DT, df$Voltage, type = "l", ylab = "Voltage", xlab ="")
