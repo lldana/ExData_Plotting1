@@ -1,0 +1,23 @@
+
+power <- read.csv("~/J. Hopkins - Data Science/RFiles/exdata_data_household_power_consumption/household_power_consumption.txt", sep=";", stringsAsFactors = FALSE)
+str(power)
+library(lubridate)
+power$Date <- dmy(power$Date)
+library(dplyr)
+df1 <- filter(power, Date == "2007-02-01")
+df2 <- filter(power, Date == "2007-02-02")
+df <- rbind(df1,df2)
+str(df)
+df$Global_active_power <- as.numeric(as.character(df$Global_active_power))
+df$Sub_metering_1 <- as.double(as.character(df$Sub_metering_1))
+df$Sub_metering_2 <- as.double(as.character(df$Sub_metering_2))
+df$Sub_metering_3 <- as.double(as.character(df$Sub_metering_3))
+df$Voltage <- as.double(as.character(df$Voltage))
+df$Global_reactive_power <- as.double(as.character(df$Global_reactive_power))
+
+df$DT <- paste(df$Date, df$Time, sep = " ")
+df$DT <- as.POSIXct(df$DT)
+
+plot(df$DT, df$Global_active_power, type = "l", ylab = "Global Active Power (kilowatts)", xlab ="")
+dev.copy(png, file = "plot2.png")
+dev.off()
